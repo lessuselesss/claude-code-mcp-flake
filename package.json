@@ -1,0 +1,14 @@
+{
+  "name": "claude-code-wrapper",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/claude-code": "^0.2.30"
+  },
+  "bin": {
+    "claude": "./bin/claude.js"
+  },
+  "scripts": {
+    "build": ""
+  }
+}
