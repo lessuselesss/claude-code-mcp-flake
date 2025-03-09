@@ -7,7 +7,7 @@ const { spawn } = require("child_process");
 // Find the path to the actual claude-code binary
 const claudeCodePath = path.resolve(
   __dirname,
-  "../node_modules/@anthropic-ai/claude-code/cli.mjs"
+  "../node_modules/@anthropic-ai/claude-code/cli.js"
 );
 
 // Forward all arguments to the actual binary
