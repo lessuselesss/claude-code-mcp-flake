@@ -25,12 +25,12 @@
         };
         packages.default = pkgs.buildNpmPackage {
           pname = "claude-wrapper";
-          version = "0.2.35";
+          version = "0.2.66";
 
           # This is where the package.json and bin/claude.js files will live
           src = ./.;
 
-          npmDepsHash = "sha256-gsujBqZRRC1SfiPXIVyvbq0lY5oto4LUvpHY8Cn5mzw=";
+          npmDepsHash = "sha256-mDIgkcbD2cvmmlQAjPJWT0MGyaQjxkOJ4yFxFIIbeGo=";
 
           # Install phase
           installPhase = ''
