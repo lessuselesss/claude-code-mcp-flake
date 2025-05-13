@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@anthropic-ai/claude-code": "^0.2.107"
+    "@anthropic-ai/claude-code": "^0.2.108"
   },
   "bin": {
     "claude": "./bin/claude.js"
