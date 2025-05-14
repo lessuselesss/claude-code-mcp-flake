@@ -23,47 +23,69 @@
             nodejs
           ];
         };
-        packages.default = pkgs.buildNpmPackage {
-          pname = "claude-wrapper";
-          version = "0.2.108";
+        packages = {
+          default = self.packages.${system}.claude-wrapper;
 
-          # This is where the package.json and bin/claude.js files will live
-          src = ./.;
+          claude-wrapper = pkgs.buildNpmPackage {
+            pname = "claude-wrapper";
+            version = "0.1.10";
 
-          npmDepsHash = "sha256-NeNuWI/m6Xon0DUQ6LLkwCgilSREyx//b5YdiaStRSo=";
+            # This is where the package.json and bin/claude.js files will live
+            src = ./.;
 
-          # Install phase
-          installPhase = ''
-            runHook preInstall
+            npmDepsHash = "sha256-Hw56ZW6KUbJUQAVi8GRuoRCEXmbaPEgNW0PPj9rAHak=";
 
-            echo "Installing $pname $version"
+            # Install phase
+            installPhase = ''
+              runHook preInstall
 
-            mkdir -p $out/bin
-            mkdir -p $out/lib/node_modules/claude-wrapper
+              echo "Installing $pname $version"
 
-            cp -r ./* $out/lib/node_modules/claude-wrapper/
+              mkdir -p $out/bin
+              mkdir -p $out/lib/node_modules/claude-wrapper
 
-            # Make sure the binary is executable
-            chmod +x $out/lib/node_modules/claude-wrapper/bin/claude.js
+              cp -r ./* $out/lib/node_modules/claude-wrapper/
 
-            # Create symlink to the binary
-            ln -s $out/lib/node_modules/claude-wrapper/bin/claude.js $out/bin/claude
+              # Make sure the binaries are executable
+              chmod +x $out/lib/node_modules/claude-wrapper/bin/claude.js
+              chmod +x $out/lib/node_modules/claude-wrapper/bin/mcp-remote.js
+              chmod +x $out/lib/node_modules/claude-wrapper/bin/mcp-remote-client.js
 
-            runHook postInstall
-          '';
+              # Create symlinks to the binaries
+              ln -s $out/lib/node_modules/claude-wrapper/bin/claude.js $out/bin/claude
+              ln -s $out/lib/node_modules/claude-wrapper/bin/mcp-remote.js $out/bin/mcp-remote
+              ln -s $out/lib/node_modules/claude-wrapper/bin/mcp-remote-client.js $out/bin/mcp-remote-client
 
-          meta = with pkgs.lib; {
-            description = "Command-line tool for Anthropic's Claude AI";
-            homepage = "https://www.anthropic.com/claude-code";
-            license = licenses.mit;
-            platforms = platforms.all;
-            maintainers = [ ];
+              runHook postInstall
+            '';
+
+            meta = with pkgs.lib; {
+              description = "Command-line tool for Anthropic's Claude AI";
+              homepage = "https://www.anthropic.com/claude-code";
+              license = licenses.mit;
+              platforms = platforms.all;
+              maintainers = [ ];
+            };
           };
         };
 
-        apps.default = flake-utils.lib.mkApp {
-          drv = self.packages.${system}.default;
-          name = "claude";
+        apps = {
+          default = self.apps.${system}.claude;
+
+          claude = flake-utils.lib.mkApp {
+            drv = self.packages.${system}.claude-wrapper;
+            name = "claude";
+          };
+
+          mcp-remote = flake-utils.lib.mkApp {
+            drv = self.packages.${system}.claude-wrapper;
+            name = "mcp-remote";
+          };
+
+          mcp-remote-client = flake-utils.lib.mkApp {
+            drv = self.packages.${system}.claude-wrapper;
+            name = "mcp-remote-client";
+          };
         };
       }
     );

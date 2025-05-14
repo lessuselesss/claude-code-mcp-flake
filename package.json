@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@anthropic-ai/claude-code": "^0.2.108"
+    "@anthropic-ai/claude-code": "^0.2.113",
+    "mcp-remote": "0.1.5"
   },
   "bin": {
     "claude": "./bin/claude.js"
