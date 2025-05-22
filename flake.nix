@@ -28,7 +28,7 @@
 
           claude-plus-mcp = pkgs.buildNpmPackage {
             pname = "claude-plus-mcp";
-            version = "0.2.0";
+            version = "0.2.1";
 
             # This is where the package.json and bin/claude.js files will live
             src = ./.;
