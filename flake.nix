@@ -35,28 +35,17 @@
 
             npmDepsHash = "sha256-gG9P0aUSWNVRGSd4huLnVVCOsCBdfZzJvr71R3diq2E=";
 
-            # Install phase
             installPhase = ''
               runHook preInstall
 
-              echo "Installing $pname $version"
-
-              mkdir -p $out/bin
-              mkdir -p $out/lib/node_modules/claude-plus-mcp
-
-              cp -r ./* $out/lib/node_modules/claude-plus-mcp/
-
-              # Make sure the binaries are executable
-              chmod +x $out/lib/node_modules/claude-plus-mcp/bin/claude.js
-              chmod +x $out/lib/node_modules/claude-plus-mcp/bin/mcp-remote.js
-              chmod +x $out/lib/node_modules/claude-plus-mcp/bin/mcp-remote-client.js
-              chmod +x $out/lib/node_modules/claude-plus-mcp/bin/slite-mcp-server.js
-
-              # Create symlinks to the binaries
-              ln -s $out/lib/node_modules/claude-plus-mcp/bin/claude.js $out/bin/claude
-              ln -s $out/lib/node_modules/claude-plus-mcp/bin/mcp-remote.js $out/bin/mcp-remote
-              ln -s $out/lib/node_modules/claude-plus-mcp/bin/mcp-remote-client.js $out/bin/mcp-remote-client
-              ln -s $out/lib/node_modules/claude-plus-mcp/bin/slite-mcp-server.js $out/bin/slite-mcp-server
+              mkdir -p $out/bin $out/share
+              cp -r node_modules $out/share/
+              
+              # Direct symlinks to actual executables
+              ln -s $out/share/node_modules/@anthropic-ai/claude-code/cli.js $out/bin/claude
+              ln -s $out/share/node_modules/mcp-remote/dist/proxy.js $out/bin/mcp-remote
+              ln -s $out/share/node_modules/mcp-remote/dist/client.js $out/bin/mcp-remote-client
+              ln -s $out/share/node_modules/slite-mcp-server/build/index.js $out/bin/slite-mcp-server
 
               runHook postInstall
             '';
