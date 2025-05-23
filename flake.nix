@@ -28,12 +28,12 @@
 
           claude-plus-mcp = pkgs.buildNpmPackage {
             pname = "claude-plus-mcp";
-            version = "0.2.1";
+            version = "0.2.2";
 
             # This is where the package.json and bin/claude.js files will live
             src = ./.;
 
-            npmDepsHash = "sha256-2jnbhcMUI+zsZ7auU8xe9ZQBDo2BA/e/u50QB1yqjkU=";
+            npmDepsHash = "sha256-gG9P0aUSWNVRGSd4huLnVVCOsCBdfZzJvr71R3diq2E=";
 
             # Install phase
             installPhase = ''
