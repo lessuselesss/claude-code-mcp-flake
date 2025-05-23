@@ -16,6 +16,14 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
+        
+        # Define executables and their paths in node_modules
+        executables = {
+          claude = "@anthropic-ai/claude-code/cli.js";
+          mcp-remote = "mcp-remote/dist/proxy.js";
+          mcp-remote-client = "mcp-remote/dist/client.js";
+          slite-mcp-server = "slite-mcp-server/build/index.js";
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -41,11 +49,10 @@
               mkdir -p $out/bin $out/share
               cp -r node_modules $out/share/
               
-              # Direct symlinks to actual executables
-              ln -s $out/share/node_modules/@anthropic-ai/claude-code/cli.js $out/bin/claude
-              ln -s $out/share/node_modules/mcp-remote/dist/proxy.js $out/bin/mcp-remote
-              ln -s $out/share/node_modules/mcp-remote/dist/client.js $out/bin/mcp-remote-client
-              ln -s $out/share/node_modules/slite-mcp-server/build/index.js $out/bin/slite-mcp-server
+              # Create symlinks for all executables
+              ${pkgs.lib.concatStringsSep "\n" (pkgs.lib.mapAttrsToList (name: path: 
+                "ln -s $out/share/node_modules/${path} $out/bin/${name}"
+              ) executables)}
 
               runHook postInstall
             '';
@@ -58,27 +65,10 @@
 
         apps = {
           default = self.apps.${system}.claude;
-
-          claude = flake-utils.lib.mkApp {
-            drv = self.packages.${system}.claude-plus-mcp;
-            name = "claude";
-          };
-
-          mcp-remote = flake-utils.lib.mkApp {
-            drv = self.packages.${system}.claude-plus-mcp;
-            name = "mcp-remote";
-          };
-
-          mcp-remote-client = flake-utils.lib.mkApp {
-            drv = self.packages.${system}.claude-plus-mcp;
-            name = "mcp-remote-client";
-          };
-
-          slite-mcp-server = flake-utils.lib.mkApp {
-            drv = self.packages.${system}.claude-plus-mcp;
-            name = "slite-mcp-server";
-          };
-        };
+        } // (pkgs.lib.mapAttrs (name: _: flake-utils.lib.mkApp {
+          drv = self.packages.${system}.claude-plus-mcp;
+          name = name;
+        }) executables);
       }
     );
 }
