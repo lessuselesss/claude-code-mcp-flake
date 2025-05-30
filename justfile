@@ -7,3 +7,9 @@ validate:
 
 install:
   nix profile remove claude && nix profile install .
+
+update:
+  npm install
+  nix build .
+  just validate
+  just install
