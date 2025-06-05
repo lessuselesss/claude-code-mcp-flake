@@ -1,9 +1,4 @@
 {
-  description = "Claude code + mcp wrappers";
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
   outputs =
     {
       self,
@@ -12,8 +7,8 @@
     }:
     let
       # Package configuration
-      version = "0.2.3";
-      npmDepsHash = "sha256-G73MKyxd5lnlXo07Vl3FGNUrHPNAzX0OJyNwKRvbFQc=";
+      version = "0.2.4";
+      npmDepsHash = "sha256-EaenU5kn7TgNnRkT39Uf4Zhv1NIXZ4dygOE1eYn4Eco=";
       # Define executables and their paths in node_modules
       executables = {
         claude = "@anthropic-ai/claude-code/cli.js";
@@ -73,4 +68,10 @@
           ) executables);
       }
     );
+
+  description = "Claude code + mcp wrappers";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 }
