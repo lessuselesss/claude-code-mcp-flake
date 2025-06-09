@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@anthropic-ai/claude-code": "^1.0.11",
-    "mcp-remote": "0.1.13",
+    "@anthropic-ai/claude-code": "^1.0.17",
+    "mcp-remote": "0.1.14",
     "slite-mcp-server": "1.0.2"
   },
   "bin": {

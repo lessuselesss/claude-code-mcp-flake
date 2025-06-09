@@ -1,4 +1,5 @@
 default:
+  npm install
   nix build .
 
 validate:
