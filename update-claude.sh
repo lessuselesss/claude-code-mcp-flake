@@ -7,6 +7,16 @@ npm update @anthropic-ai/claude-code
 echo "Running npm install..."
 npm install
 
+echo "Checking if package-lock.json was modified..."
+if ! git diff --quiet package-lock.json; then
+    echo -e "\033[1;32mPackage updated successfully\033[0m"
+else
+    echo
+    echo -e "\033[1;32mPackage is already up to date\033[0m"
+    echo
+    exit 1
+fi
+
 echo "Incrementing patch version in flake.nix..."
 current_version=$(grep 'version = ' flake.nix | head -1 | sed 's/.*version = "\([^"]*\)".*/\1/')
 IFS='.' read -ra VERSION_PARTS <<<"$current_version"
