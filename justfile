@@ -10,7 +10,6 @@ install:
   nix profile remove claude && nix profile install .
 
 update:
-  npm install
-  nix build .
+  ./update-claude.sh
   just validate
   just install
