@@ -12,4 +12,5 @@ install:
 update:
   ./update-claude.sh
   just validate
+  git add . && git commit -m "Update Claude version"
   just install
