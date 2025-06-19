@@ -5,6 +5,7 @@ default:
 validate:
   nix run .#claude -- --version
   nix run .#slite-mcp-server -- --version
+  nix run .#playwright-mcp -- --version
 
 install:
   nix profile remove claude && nix profile install .

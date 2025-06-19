@@ -7,7 +7,7 @@
     }:
     let
       # Package configuration
-      version = "0.2.10";
+      version = "0.2.11";
       npmDepsHash = "sha256-qbtqGIq4wJc7lX4YmN6wuVpTyV9guFrlKbjLyFLpnGs=";
       # Define executables and their paths in node_modules
       executables = {
@@ -15,6 +15,7 @@
         mcp-remote = "mcp-remote/dist/proxy.js";
         mcp-remote-client = "mcp-remote/dist/client.js";
         slite-mcp-server = "slite-mcp-server/build/index.js";
+        playwright-mcp = "@playwright/mcp/dist/index.js";
       };
     in
     flake-utils.lib.eachDefaultSystem (
