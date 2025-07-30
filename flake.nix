@@ -7,8 +7,8 @@
     }:
     let
       # Package configuration
-      version = "0.2.31";
-      npmDepsHash = "sha256-UeWUQVKho+iycxU0zCcSLEk6dt/Q0mXL6OLTw53ieAM=";
+      version = "0.2.32";
+      npmDepsHash = "sha256-IycDVrnicgtg8RX50Y0xYvcg+YZKob+2I55Sulk2TBg=";
       # Define executables and their paths in node_modules
       executables = {
         claude = "@anthropic-ai/claude-code/cli.js";
